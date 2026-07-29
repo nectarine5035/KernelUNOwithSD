@@ -1,6 +1,11 @@
-# KernelUNO v1.0
+# KernelUNOwithSD v1.0
 
-A Unix-like shell and RAM filesystem for Arduino UNO R3. Write files, control GPIO pins, read sensors, and run simple scripts all from the serial terminal.
+A fork of KernelUNO by [Arc1011](https://github.com/Arc1011/KernelUNO), with the RAM filesystem replaced with access to a filesystem on an SD card. The commands for interacting with the filesystem now use the Arduino SD library. There's no dev directory or find command in this version, but besides that i tried to keep it as close to the original as possible.
+The pins to connect the Arduino to the SD card are the standard pins for the UNO SD library:
+CS - pin 10
+SDO - pin 11
+SDI - pin 12
+CLK - pin 13
 
 <img width="769" height="659" alt="554" src="https://github.com/user-attachments/assets/82aa5f0c-bf22-4f83-865a-ba3b4258011e" />
 
@@ -30,29 +35,16 @@ A Unix-like shell and RAM filesystem for Arduino UNO R3. Write files, control GP
 - `whoami`
 - `clear`
 - `reboot`
-- `find`
 - `alias`
 - `slots`
 
 ## How It Works
 
-The code manages a virtual filesystem stored in RAM:
-- Maximum 10 files/directories
-- Max 32 bytes per file content
-- 12 character names
-- Automatic `/home` and `/dev` directories created on boot
-- `/dev/pin2`, `/dev/pin3`, `/dev/pin4` are special files for GPIO
+The code now manages a filesystem stored on an SD card connected via SPI, allowing for greater capacity than the RAM of the Arduino. KernelUNOwithSD can read files of any length, but length of content written to files and maximum file path are still limited by RAM.
 
 GPIO control uses standard Arduino functions: `pinMode()`, `digitalWrite()`, `digitalRead()`, and `analogWrite()`.
 
 Input is buffered from the serial connection and parsed line-by-line. Commands are case-insensitive.
-
-## Planned Features
-
-- EEPROM support
-- I2C interface
-- Date cmd
-- neofetch cmd
 
 ## License
 
