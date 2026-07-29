@@ -6,7 +6,7 @@
 #define NAME_LEN 12             
 #define PATH_LEN 16         
 #define DMESG_LINES 6
-#define DMESG_LEN 4 //40
+#define DMESG_LEN 40
 
 const int chipSelect = 10;
 
